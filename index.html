@@ -1,12 +1,112 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <meta charset="UTF-8">
-  <title>EditHub - SFX • Music • Memes</title>
+<meta charset="UTF-8">
+<title>EditHub | SFX • Music • Memes</title>
+<style>
+    body {
+        margin:0;
+        font-family: Arial, sans-serif;
+        background:#0e0e0e;
+        color:white;
+    }
+    header {
+        background:#1ee352;
+        padding:20px;
+        text-align:center;
+        font-size:28px;
+        font-weight:bold;
+    }
+    .container {
+        width:90%;
+        margin:auto;
+        padding:30px 0;
+    }
+    .btn-box {
+        display:flex;
+        justify-content:center;
+        gap:20px;
+        flex-wrap:wrap;
+    }
+    .tab-btn {
+        padding:14px 25px;
+        background:#1ee352;
+        color:black;
+        border-radius:8px;
+        font-weight:bold;
+        cursor:pointer;
+        border:2px solid #1ee352;
+    }
+    .tab-btn:hover {
+        background:black;
+        color:#1ee352;
+    }
+    section {
+        display:none;
+        margin-top:30px;
+    }
+    audio {
+        width:250px;
+        margin-bottom:15px;
+    }
+    img {
+        width:200px;
+        border-radius:10px;
+        margin-bottom:15px;
+    }
+</style>
+
+<script>
+function showTab(id){
+    document.querySelectorAll("section").forEach(sec=>sec.style.display="none");
+    document.getElementById(id).style.display="block";
+}
+</script>
 </head>
+
 <body>
-  <h1>Welcome to EditHub 🔥</h1>
-  <p>SFX • Background Music • Memes</p>
-  <p>Download & use freely for your edits.</p>
+
+<header>EditHub 🔥</header>
+<div class="container">
+
+    <div class="btn-box">
+        <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
+        <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
+        <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
+    </div>
+
+    <!-- SFX -->
+    <section id="sfx">
+        <h2>SFX Downloads</h2>
+
+        <p>Example Preview:</p>
+        <audio controls>
+            <source src="sfx/boom.mp3" type="audio/mpeg">
+        </audio>
+        <br>
+        <a href="sfx/boom.mp3" download>⬇️ Download Boom</a>
+    </section>
+
+    <!-- MUSIC -->
+    <section id="music">
+        <h2>Background Music</h2>
+
+        <audio controls>
+            <source src="music/dramatic.mp3" type="audio/mpeg">
+        </audio>
+        <br>
+        <a href="music/dramatic.mp3" download>⬇️ Download Dramatic Music</a>
+    </section>
+
+    <!-- MEMES -->
+    <section id="memes">
+        <h2>Meme Pack</h2>
+
+        <img src="memes/meme1.jpg" alt="meme">
+        <br>
+        <a href="memes/meme1.jpg" download>⬇️ Download Meme 1</a>
+    </section>
+
+</div>
 </body>
 </html>
