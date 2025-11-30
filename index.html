@@ -6,105 +6,168 @@
 
 <style>
     body {
-        background:#161616;
         margin:0;
-        font-family: Arial, sans-serif;
+        padding:0;
+        font-family: Poppins, Arial, sans-serif;
+        background:#111;
         color:#e8e8e8;
     }
+
     header {
-        background:#1ee352;
-        padding:20px;
         text-align:center;
-        font-size:30px;
-        font-weight:bold;
+        padding:30px 0;
+        font-size:38px;
+        font-weight:900;
+        background:linear-gradient(90deg,#1ee352,#0f7e2d);
         color:black;
+        letter-spacing:1px;
+        user-select:none;
     }
-    .container {
-        width:90%;
+
+    .container{
+        width:92%;
         margin:auto;
         padding:20px 0;
     }
-    .btn-box {
+
+    /* CATEGORY BUTTONS */
+    .btn-box{
         display:flex;
         justify-content:center;
+        gap:16px;
+        margin:20px 0;
         flex-wrap:wrap;
-        gap:15px;
-        margin-top:20px;
     }
-    .tab-btn {
+    .tab-btn{
         padding:12px 22px;
         background:#1ee352;
-        color:black;
-        border-radius:8px;
+        border-radius:10px;
+        border:2px solid #1ee352;
         font-weight:600;
         cursor:pointer;
-        border:2px solid #1ee352;
-        transition:0.25s;
+        color:#111;
+        transition:.25s;
     }
-    .tab-btn:hover {
-        background:black;
+    .tab-btn:hover{
+        background:transparent;
         color:#1ee352;
-
-    /* Search bar */
-    #search {
-        width:95%;
-        margin:25px auto 10px auto;
-        padding:12px;
-        border-radius:6px;
-        font-size:15px;
-        display:block;
-        border:1px solid #333;
-        background:#222;
-        color:white;
     }
 
-    section {
+    /* SEARCH */
+    #search{
+        width:95%;
+        margin:20px auto;
+        display:block;
+        padding:12px;
+        border-radius:8px;
+        background:#222;
+        border:1px solid #333;
+        color:white;
+        font-size:16px;
+    }
+
+    /* SECTION */
+    section{
         display:none;
         margin-top:20px;
     }
-    .item-box {
-        margin:12px 0 25px 5px;
-        padding:15px;
-        background:#202020;
-        border-radius:10px;
+
+    h2{
+        color:#1ee352;
+        font-size:22px;
+        margin-bottom:5px;
     }
 
-    audio,img {
-        width:260px;
+    /* GRID */
+    .items-grid{
+        display:grid;
+        grid-template-columns: repeat(3,1fr);
+        gap:20px;
+        margin-top:20px;
     }
-    h3 {
-        margin:4px 0;
+
+    @media(max-width:900px){
+        .items-grid{grid-template-columns:repeat(2,1fr);}
+    }
+    @media(max-width:600px){
+        .items-grid{grid-template-columns:1fr;}
+    }
+
+    /* ITEM BOX */
+    .item-box{
+        background:#181818;
+        padding:18px;
+        border-radius:12px;
+        border:1px solid #222;
+        text-align:center;
+        box-shadow:0 0 12px rgba(0,255,80,.05);
+    }
+    .item-box:hover{
+        transform:scale(1.02);
+        transition:.3s;
+    }
+
+    .item-box h3{
         color:#1ee352;
+        margin-bottom:6px;
+        font-size:17px;
+    }
+
+    audio,img{
+        width:100%;
+        border-radius:8px;
+        margin:8px 0;
+    }
+
+    /* DL button */
+    .dl-btn{
+        width:100%;
+        background:#1ee352;
+        color:#111;
+        padding:10px 0;
+        border-radius:8px;
+        margin-top:6px;
+        font-weight:700;
+        cursor:pointer;
+        border:none;
+        transition:.25s;
+    }
+    .dl-btn:hover{
+        background:#0f7e2d;
+        color:white;
     }
 
     /* POPUP */
     .popup-bg{
         position:fixed;
-        left:0; top:0;
-        width:100%; height:100%;
-        background:rgba(0,0,0,0.75);
+        top:0;left:0;
+        width:100%;height:100%;
+        background:rgba(0,0,0,.75);
         display:none;
         justify-content:center;
         align-items:center;
     }
     .popup{
-        background:#222;
-        padding:40px;
         width:300px;
-        border-radius:10px;
+        background:#222;
+        padding:30px;
+        border-radius:12px;
         text-align:center;
+    }
+    .popup h3{
+        color:#1ee352;
+        margin-bottom:15px;
     }
     .popup a{
         display:block;
+        padding:12px;
         background:#1ee352;
-        color:black;
-        padding:10px 15px;
+        color:#111;
         border-radius:8px;
-        font-weight:bold;
-        margin:10px 0;
+        font-weight:700;
+        margin-bottom:8px;
     }
     .close{
-        margin-top:10px;
         cursor:pointer;
         color:white;
     }
@@ -112,24 +175,23 @@
 
 <script>
 function showTab(id){
-    document.querySelectorAll("section").forEach(sec=>sec.style.display="none");
+    document.querySelectorAll("section").forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
 }
 
-/* 🔍 LIVE SEARCH */
+/* SEARCH */
 function searchItems(){
-    let query = document.getElementById("search").value.toLowerCase();
-    let items = document.querySelectorAll(".item-box");
-    items.forEach(i=>{
-        (i.innerText.toLowerCase().includes(query))
-        ? i.style.display="block"
-        : i.style.display="none";
+    let q = document.getElementById("search").value.toLowerCase();
+    document.querySelectorAll(".item-box").forEach(item=>{
+        item.innerText.toLowerCase().includes(q)
+        ? item.style.display="block"
+        : item.style.display="none";
     });
 }
 
-/* Popup download */
+/* POPUP */
 function openPopup(file){
-    document.getElementById("popupLink").href = file;
+    document.getElementById("popupLink").href=file;
     document.querySelector(".popup-bg").style.display="flex";
 }
 function closePopup(){
@@ -145,42 +207,49 @@ function closePopup(){
 
 <div class="container">
 
-    <!-- Main tabs -->
+    <!-- Tabs -->
     <div class="btn-box">
         <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
         <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
         <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
     </div>
 
-    <input id="search" placeholder="Search SFX / Music / Meme" onkeyup="searchItems()">
+    <input id="search" placeholder="Search SFX / Music / Meme..." onkeyup="searchItems()">
 
     <!-- SFX -->
-    <section id="sfx">
+    <section id="sfx" style="display:block;">
         <h2>🎧 Sound Effects</h2>
 
-        <div class="item-box">
-    <h3>Shocked SFX</h3>
-    <audio controls>
-        <source src="sfx/shocked.mp3" type="audio/mp3">
-    </audio>
-    <a href="sfx/shocked.mp3" download>
-        <button>⬇️ Download</button>
-    </a>
-</div>
+        <div class="items-grid">
 
+            <!-- EXAMPLE ITEM -->
+            <div class="item-box">
+                <h3>Shocked SFX</h3>
+                <audio controls>
+                    <source src="sfx/shocked.mp3" type="audio/mpeg">
+                </audio>
+                <button class="dl-btn" onclick="openPopup('sfx/shocked.mp3')">⬇ Download</button>
+            </div>
+
+            <!-- ADD MORE ITEMS HERE -->
+
+        </div>
     </section>
 
     <!-- MUSIC -->
     <section id="music">
         <h2>🎵 Background Music</h2>
 
-        <div class="item-box">
-            <h3>Dramatic Theme</h3>
-            <audio controls>
-                <source src="music/dramatic.mp3" type="audio/mpeg">
-            </audio>
-            <br>
-            <button onclick="openPopup('music/dramatic.mp3')">⬇️ Download</button>
+        <div class="items-grid">
+
+            <div class="item-box">
+                <h3>Dramatic Theme</h3>
+                <audio controls>
+                    <source src="music/dramatic.mp3" type="audio/mpeg">
+                </audio>
+                <button class="dl-btn" onclick="openPopup('music/dramatic.mp3')">⬇ Download</button>
+            </div>
+
         </div>
     </section>
 
@@ -188,21 +257,23 @@ function closePopup(){
     <section id="memes">
         <h2>😂 Meme Pack</h2>
 
-        <div class="item-box">
-            <h3>Meme 1</h3>
-            <img src="memes/meme1.jpg">
-            <br>
-            <button onclick="openPopup('memes/meme1.jpg')">⬇️ Download</button>
+        <div class="items-grid">
+
+            <div class="item-box">
+                <h3>Meme 1</h3>
+                <img src="memes/meme1.jpg">
+                <button class="dl-btn" onclick="openPopup('memes/meme1.jpg')">⬇ Download</button>
+            </div>
+
         </div>
     </section>
-
 </div>
 
-<!-- POPUP UI -->
+<!-- POPUP -->
 <div class="popup-bg">
     <div class="popup">
-        <h2>Direct Download</h2>
-        <a id="popupLink" download>Click to Download</a>
+        <h3>Direct Download</h3>
+        <a id="popupLink" download>Download Now</a>
         <div class="close" onclick="closePopup()">Close ❌</div>
     </div>
 </div>
