@@ -8,298 +8,212 @@
     body {
         margin:0;
         padding:0;
-        font-family: Poppins, Arial, sans-serif;
+        font-family: Arial, sans-serif;
         background:#111;
         color:#e8e8e8;
     }
-
     header {
+        background:#1ee352;
+        padding:18px;
         text-align:center;
-        padding:30px 0;
-        font-size:38px;
-        font-weight:900;
-        background:linear-gradient(90deg,#1ee352,#0f7e2d);
+        font-size:32px;
+        font-weight:700;
         color:black;
-        letter-spacing:1px;
-        user-select:none;
     }
 
-    .container{
-        width:92%;
-        margin:auto;
-        padding:20px 0;
-    }
-
-    /* CATEGORY BUTTONS */
-    .btn-box{
+    /* Tabs */
+    .btn-box {
         display:flex;
         justify-content:center;
-        gap:16px;
-        margin:20px 0;
         flex-wrap:wrap;
+        gap:15px;
+        margin-top:20px;
     }
     .tab-btn{
         padding:12px 22px;
         background:#1ee352;
-        border-radius:10px;
-        border:2px solid #1ee352;
+        color:black;
+        border-radius:8px;
         font-weight:600;
         cursor:pointer;
-        color:#111;
-        transition:.25s;
+        border:2px solid #1ee352;
+        transition:0.25s;
     }
     .tab-btn:hover{
-        background:transparent;
+        background:black;
         color:#1ee352;
     }
 
-    /* SEARCH */
+    /* Search bar */
     #search{
-        width:95%;
-        margin:20px auto;
-        display:block;
+        width:90%;
+        margin:25px auto 10px auto;
         padding:12px;
-        border-radius:8px;
-        background:#222;
+        border-radius:6px;
+        font-size:15px;
+        display:block;
         border:1px solid #333;
+        background:#222;
         color:white;
-        font-size:16px;
     }
 
-    /* SECTION */
+    /* Sections */
     section{
         display:none;
+        width:90%;
+        margin:auto;
         margin-top:20px;
     }
 
-    h2{
-        color:#1ee352;
-        font-size:22px;
-        margin-bottom:5px;
-    }
-
-    /* GRID */
-    .items-grid{
+    /* SFX Boxes Grid */
+    .grid{
         display:grid;
-        grid-template-columns: repeat(3,1fr);
-        gap:20px;
-        margin-top:20px;
+        grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+        gap:18px;
+        margin-top:10px;
     }
 
-    @media(max-width:900px){
-        .items-grid{grid-template-columns:repeat(2,1fr);}
-    }
-    @media(max-width:600px){
-        .items-grid{grid-template-columns:1fr;}
-    }
-
-    /* ITEM BOX */
     .item-box{
-        background:#181818;
-        padding:18px;
-        border-radius:12px;
-        border:1px solid #222;
-        text-align:center;
-        box-shadow:0 0 12px rgba(0,255,80,.05);
-    }
-    .item-box:hover{
-        transform:scale(1.02);
-        transition:.3s;
-    }
-
-    .item-box h3{
-        color:#1ee352;
-        margin-bottom:6px;
-        font-size:17px;
+        padding:14px;
+        background:#1b1b1b;
+        border-radius:10px;
     }
 
     audio,img{
         width:100%;
-        border-radius:8px;
-        margin:8px 0;
+    }
+    h3{
+        margin:6px 0;
+        color:#1ee352;
     }
 
-    /* DL button */
+    /* Download Button */
     .dl-btn{
-        width:100%;
+        display:block;
         background:#1ee352;
-        color:#111;
+        color:black;
+        text-align:center;
         padding:10px 0;
-        border-radius:8px;
-        margin-top:6px;
         font-weight:700;
-        cursor:pointer;
-        border:none;
-        transition:.25s;
+        border-radius:8px;
+        margin-top:8px;
+        text-decoration:none;
+        transition:0.2s;
     }
     .dl-btn:hover{
-        background:#0f7e2d;
-        color:white;
-    }
-
-    /* POPUP */
-    .popup-bg{
-        position:fixed;
-        top:0;left:0;
-        width:100%;height:100%;
-        background:rgba(0,0,0,.75);
-        display:none;
-        justify-content:center;
-        align-items:center;
-    }
-    .popup{
-        width:300px;
-        background:#222;
-        padding:30px;
-        border-radius:12px;
-        text-align:center;
-    }
-    .popup h3{
+        background:black;
         color:#1ee352;
-        margin-bottom:15px;
     }
-    .popup a{
-        display:block;
-        padding:12px;
-        background:#1ee352;
-        color:#111;
-        border-radius:8px;
-        font-weight:700;
-        margin-bottom:8px;
-    }
-    .close{
-        cursor:pointer;
-        color:white;
-    }
-    .dl-btn {
-    display: block;
-    background: #1ee352;
-    color: black;
-    text-align: center;
-    padding: 12px 0;
-    font-weight: 700;
-    border-radius: 8px;
-    margin-top: 10px;
-    text-decoration: none;
-    transition: 0.2s;
-}
-
-.dl-btn:hover {
-    background: black;
-    color: #1ee352;
-}
-
 </style>
 
 <script>
+/* TAB SWITCH */
 function showTab(id){
-    document.querySelectorAll("section").forEach(s=>s.style.display="none");
+    document.querySelectorAll("section").forEach(sec => sec.style.display="none");
     document.getElementById(id).style.display="block";
 }
 
-/* SEARCH */
+/* TAG BASED SEARCH */
 function searchItems(){
     let q = document.getElementById("search").value.toLowerCase();
-    document.querySelectorAll(".item-box").forEach(item=>{
-        item.innerText.toLowerCase().includes(q)
-        ? item.style.display="block"
-        : item.style.display="none";
-    });
-}
+    let items = document.querySelectorAll(".item-box");
 
-/* POPUP */
-function openPopup(file){
-    document.getElementById("popupLink").href=file;
-    document.querySelector(".popup-bg").style.display="flex";
-}
-function closePopup(){
-    document.querySelector(".popup-bg").style.display="none";
+    items.forEach(i=>{
+        let tags = i.getAttribute("data-tags").toLowerCase();
+        let title = i.innerText.toLowerCase();
+
+        (tags.includes(q) || title.includes(q))
+        ? i.style.display="block"
+        : i.style.display="none";
+    });
 }
 </script>
 
 </head>
-
 <body>
 
 <header>EditHub 🔥</header>
 
-<div class="container">
-
-    <!-- Tabs -->
-    <div class="btn-box">
-        <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
-        <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
-        <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
-    </div>
-
-    <input id="search" placeholder="Search SFX / Music / Meme..." onkeyup="searchItems()">
-
-    <!-- SFX -->
-    <section id="sfx" style="display:block;">
-        <h2>🎧 Sound Effects</h2>
-
-        <div class="items-grid">
-            <div class="item-box">
-                <h3>Shocked</h3>
-                <audio controls>
-                    <source src="sfx/shocked.mp3" type="audio/mpeg">
-                </audio>
-                <button class="dl-btn" onclick="openPopup('sfx/shocked.mp3')">⬇ Download</button>
-            </div>
-
-            <div class="item-box">
-    <h3>get out tuco</h3>
-    <audio controls>
-        <source src="sfx/get out tuco.mp3" type="audio/mpeg">
-    </audio>
-    <a href="sfx/get out tuco.mp3" download class="dl-btn">
-        ⬇️ Download
-    </a>
-
-        </div>
-    </section>
-
-    <!-- MUSIC -->
-    <section id="music">
-        <h2>🎵 Background Music</h2>
-
-        <div class="items-grid">
-
-            <div class="item-box">
-                <h3>Dramatic Theme</h3>
-                <audio controls>
-                    <source src="music/dramatic.mp3" type="audio/mpeg">
-                </audio>
-                <button class="dl-btn" onclick="openPopup('music/dramatic.mp3')">⬇ Download</button>
-            </div>
-
-        </div>
-    </section>
-
-    <!-- MEMES -->
-    <section id="memes">
-        <h2>😂 Meme Pack</h2>
-
-        <div class="items-grid">
-
-            <div class="item-box">
-                <h3>Meme 1</h3>
-                <img src="memes/meme1.jpg">
-                <button class="dl-btn" onclick="openPopup('memes/meme1.jpg')">⬇ Download</button>
-            </div>
-
-        </div>
-    </section>
+<!-- TAB BUTTONS -->
+<div class="btn-box">
+    <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
+    <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
+    <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
 </div>
 
-<!-- POPUP -->
-<div class="popup-bg">
-    <div class="popup">
-        <h3>Direct Download</h3>
-        <a id="popupLink" download>Download Now</a>
-        <div class="close" onclick="closePopup()">Close ❌</div>
+<!-- SEARCH -->
+<input id="search" placeholder="Search SFX / Music / Memes" onkeyup="searchItems()">
+
+<!------------------------------------------------------ SFX -->
+<section id="sfx">
+    <h2>🎧 Sound Effects</h2>
+
+    <div class="grid">
+
+        <!-- SAMPLE SFX -->
+        <div class="item-box" data-tags="getout meme funny scar">
+            <h3>GET OUT</h3>
+            <audio controls>
+                <source src="sfx/get out tuco.mp3" type="audio/mpeg">
+            </audio>
+            <a class="dl-btn" href="sfx/soft-whoosh.mp3" download>⬇️ Download</a>
+        </div>
+
+        <div class="item-box" data-tags="whoosh hard impact cinematic sword fast">
+            <h3>Hard Whoosh</h3>
+            <audio controls>
+                <source src="sfx/hard-whoosh.mp3" type="audio/mpeg">
+            </audio>
+            <a class="dl-btn" href="sfx/hard-whoosh.mp3" download>⬇️ Download</a>
+        </div>
+
+        <!-- YOUR UPLOADED ONE -->
+        <div class="item-box" data-tags="shock zap electricity meme jump scare">
+            <h3>Shocked SFX</h3>
+            <audio controls>
+                <source src="sfx/shocked.mp3" type="audio/mpeg">
+            </audio>
+            <a class="dl-btn" href="sfx/shocked.mp3" download>⬇️ Download</a>
+        </div>
+
     </div>
-</div>
+</section>
+
+
+<!------------------------------------------------------ MUSIC -->
+<section id="music">
+    <h2>🎵 Background Music</h2>
+
+    <div class="grid">
+        <div class="item-box" data-tags="music dramatic emotional trailer epic">
+            <h3>Dramatic Theme</h3>
+            <audio controls>
+                <source src="music/dramatic.mp3" type="audio/mpeg">
+            </audio>
+            <a class="dl-btn" href="music/dramatic.mp3" download>⬇️ Download</a>
+        </div>
+    </div>
+</section>
+
+
+<!------------------------------------------------------ MEMES -->
+<section id="memes">
+    <h2>😂 Meme Pack</h2>
+
+    <div class="grid">
+        <div class="item-box" data-tags="meme reaction funny image lol">
+            <h3>Meme 1</h3>
+            <img src="memes/meme1.jpg">
+            <a class="dl-btn" href="memes/meme1.jpg" download>⬇️ Download</a>
+        </div>
+    </div>
+</section>
+
+
+<script>
+/* default tab */
+showTab('sfx');
+</script>
 
 </body>
 </html>
