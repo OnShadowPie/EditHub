@@ -4,20 +4,20 @@
 <meta charset="UTF-8">
 <title>EditHub | SFX • Music • Memes</title>
 
-<!-- WAVESURFER -->
+<!-- WaveSurfer -->
 <script src="https://unpkg.com/wavesurfer.js"></script>
 
 <style>
 body{
     margin:0;
     font-family:Arial, sans-serif;
-    background:#f5f5f5;
+    background:#f6f7f8;
     color:#111;
 }
 
 /* HEADER */
 header{
-    background:white;
+    background:#ffffff;
     padding:16px;
     text-align:center;
     font-size:30px;
@@ -29,8 +29,8 @@ header{
 .btn-box{
     display:flex;
     justify-content:center;
-    gap:15px;
-    margin-top:15px;
+    gap:14px;
+    margin:18px 0;
 }
 .tab-btn{
     padding:10px 22px;
@@ -41,16 +41,17 @@ header{
     cursor:pointer;
 }
 .tab-btn:hover{
-    background:black;
+    background:#000;
     color:#1ee352;
 }
 
 /* SEARCH */
 #search{
-    width:75%;
-    margin:18px auto;
+    width:70%;
+    max-width:700px;
+    margin:0 auto 20px auto;
     display:block;
-    padding:10px;
+    padding:11px;
     border-radius:6px;
     border:1px solid #ccc;
     font-size:15px;
@@ -59,42 +60,50 @@ header{
 /* SECTIONS */
 section{
     display:none;
-    width:90%;
-    margin:auto;
-    margin-top:20px;
+    width:100%;
 }
 
-/* GRID */
+/* LIST (Pixabay style) */
 .grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
-    gap:18px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    max-width:880px;
+    margin:auto;
+    padding-bottom:30px;
 }
 
 /* ITEM */
 .item-box{
-    background:white;
-    padding:14px;
-    border-radius:10px;
-    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+    background:#fff;
+    padding:16px 18px;
+    border-radius:12px;
+    box-shadow:0 2px 10px rgba(0,0,0,0.08);
 }
 
 h3{
-    margin:6px 0;
+    margin:4px 0 6px 0;
+    font-size:17px;
     color:#1ee352;
 }
 
-/* WAVE */
+/* WAVEFORM */
 .wave{
     width:100%;
-    height:70px;
+    height:90px;
+    margin-top:6px;
 }
 
-/* BUTTONS */
+/* CONTROLS */
+.ctrl{
+    display:flex;
+    gap:10px;
+    margin-top:8px;
+}
+
 .play-btn{
-    width:100%;
-    margin-top:6px;
-    padding:8px;
+    flex:1;
+    padding:9px;
     background:#111;
     color:white;
     border:none;
@@ -107,13 +116,12 @@ h3{
 }
 
 .dl-btn{
-    display:block;
-    margin-top:8px;
-    padding:10px;
+    flex:1;
+    padding:9px;
     background:#1ee352;
     color:black;
     text-align:center;
-    border-radius:8px;
+    border-radius:6px;
     font-weight:700;
     text-decoration:none;
 }
@@ -132,9 +140,9 @@ function showTab(id){
 function searchItems(){
     let q=document.getElementById("search").value.toLowerCase();
     document.querySelectorAll(".item-box").forEach(i=>{
-        let t=i.getAttribute("data-tags").toLowerCase();
-        let n=i.innerText.toLowerCase();
-        i.style.display=(t.includes(q)||n.includes(q))?"block":"none";
+        let tags=i.getAttribute("data-tags").toLowerCase();
+        let title=i.innerText.toLowerCase();
+        i.style.display=(tags.includes(q)||title.includes(q))?"block":"none";
     });
 }
 </script>
@@ -142,94 +150,100 @@ function searchItems(){
 
 <body>
 
-<header>EditHub 🎧</header>
+<header>EditHub 🔥</header>
 
 <div class="btn-box">
-    <button class="tab-btn" onclick="showTab('sfx')">SFX</button>
-    <button class="tab-btn" onclick="showTab('music')">Music</button>
-    <button class="tab-btn" onclick="showTab('memes')">Memes</button>
+    <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
+    <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
+    <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
 </div>
 
 <input id="search" placeholder="Search SFX / Music / Memes" onkeyup="searchItems()">
 
-<!-- ===================== SFX ===================== -->
+<!-- ================= SFX ================= -->
 <section id="sfx">
-<h2>Sound Effects</h2>
-
 <div class="grid">
 
-<div class="item-box" data-tags="shock electricity scare">
+<div class="item-box" data-tags="shock electricity jump scare">
 <h3>Shocked SFX</h3>
 <div id="wave1" class="wave"></div>
-<button class="play-btn" onclick="wave1.playPause()">▶ Play / Pause</button>
+<div class="ctrl">
+<button class="play-btn" onclick="w1.playPause()">▶ Play</button>
 <a class="dl-btn" href="sfx/shocked.mp3" download>⬇ Download</a>
+</div>
 </div>
 
 <div class="item-box" data-tags="fart meme funny">
 <h3>Fart Meme</h3>
 <div id="wave2" class="wave"></div>
-<button class="play-btn" onclick="wave2.playPause()">▶ Play / Pause</button>
+<div class="ctrl">
+<button class="play-btn" onclick="w2.playPause()">▶ Play</button>
 <a class="dl-btn" href="sfx/fart-meme-sound.mp3" download>⬇ Download</a>
+</div>
 </div>
 
 </div>
 </section>
 
-<!-- ===================== MUSIC ===================== -->
+<!-- ================= MUSIC ================= -->
 <section id="music">
-<h2>Music</h2>
 <div class="grid">
-<div class="item-box" data-tags="music dramatic epic">
+
+<div class="item-box" data-tags="music dramatic epic trailer">
 <h3>Dramatic Theme</h3>
 <div id="wave3" class="wave"></div>
-<button class="play-btn" onclick="wave3.playPause()">▶ Play / Pause</button>
+<div class="ctrl">
+<button class="play-btn" onclick="w3.playPause()">▶ Play</button>
 <a class="dl-btn" href="music/dramatic.mp3" download>⬇ Download</a>
 </div>
 </div>
+
+</div>
 </section>
 
-<!-- ===================== MEMES ===================== -->
+<!-- ================= MEMES ================= -->
 <section id="memes">
-<h2>Memes</h2>
 <div class="grid">
+
 <div class="item-box" data-tags="meme funny image">
 <h3>Meme 1</h3>
 <img src="memes/meme1.jpg" style="width:100%;border-radius:8px">
-<a class="dl-btn" href="memes/meme1.jpg" download>⬇ Download</a>
+<a class="dl-btn" href="memes/meme1.jpg" download style="margin-top:10px;">⬇ Download</a>
 </div>
+
 </div>
 </section>
 
 <script>
 /* WAVES */
-var wave1=WaveSurfer.create({
+var w1=WaveSurfer.create({
 container:'#wave1',
 waveColor:'#ccc',
 progressColor:'#1ee352',
 barWidth:2,
-height:70
+height:90
 });
-wave1.load('sfx/shocked.mp3');
+w1.load('sfx/shocked.mp3');
 
-var wave2=WaveSurfer.create({
+var w2=WaveSurfer.create({
 container:'#wave2',
 waveColor:'#ccc',
 progressColor:'#1ee352',
 barWidth:2,
-height:70
+height:90
 });
-wave2.load('sfx/fart-meme-sound.mp3');
+w2.load('sfx/fart-meme-sound.mp3');
 
-var wave3=WaveSurfer.create({
+var w3=WaveSurfer.create({
 container:'#wave3',
 waveColor:'#ccc',
 progressColor:'#1ee352',
 barWidth:2,
-height:70
+height:90
 });
-wave3.load('music/dramatic.mp3');
+w3.load('music/dramatic.mp3');
 
-/* DEFAULT TAB */
+/* DEFAULT */
 showTab('sfx');
 </script>
 
