@@ -4,7 +4,6 @@
 <meta charset="UTF-8">
 <title>EditHub | SFX • Music • Memes</title>
 
-<!-- WaveSurfer -->
 <script src="https://unpkg.com/wavesurfer.js"></script>
 
 <style>
@@ -17,10 +16,10 @@ body{
 
 /* HEADER */
 header{
-    background:#ffffff;
-    padding:16px;
+    background:#fff;
+    padding:14px;
     text-align:center;
-    font-size:30px;
+    font-size:28px;
     font-weight:700;
     border-bottom:1px solid #ddd;
 }
@@ -29,14 +28,14 @@ header{
 .btn-box{
     display:flex;
     justify-content:center;
-    gap:14px;
-    margin:18px 0;
+    gap:12px;
+    margin:14px 0;
 }
 .tab-btn{
-    padding:10px 22px;
+    padding:8px 18px;
     background:#1ee352;
     border:none;
-    border-radius:8px;
+    border-radius:6px;
     font-weight:600;
     cursor:pointer;
 }
@@ -47,86 +46,90 @@ header{
 
 /* SEARCH */
 #search{
-    width:70%;
-    max-width:700px;
-    margin:0 auto 20px auto;
+    width:65%;
+    max-width:680px;
+    margin:0 auto 14px auto;
     display:block;
-    padding:11px;
+    padding:9px;
     border-radius:6px;
     border:1px solid #ccc;
-    font-size:15px;
+    font-size:14px;
 }
 
 /* SECTIONS */
 section{
     display:none;
-    width:100%;
 }
 
-/* LIST (Pixabay style) */
+/* LIST */
 .grid{
     display:flex;
     flex-direction:column;
-    gap:14px;
-    max-width:1742px;   
+    gap:6px;
+    max-width:1742px;
     margin:auto;
-    padding-bottom:30px;
+    padding-bottom:20px;
 }
 
-/* ITEM */
+/* ROW */
 .item-box{
-    background:#fff;
-    padding:16px 18px;
-    border-radius:12px;
-    box-shadow:0 2px 10px rgba(0,0,0,0.08);
-}
-
-h3{
-    margin:4px 0 6px 0;
-    font-size:17px;
-    color:#1ee352;
-}
-
-/* WAVEFORM */
-.wave{
-    width:100%;
-    height:85px;       
-    margin-top:4px;
-}
-
-/* CONTROLS */
-.ctrl{
     display:flex;
-    gap:10px;
-    margin-top:8px;
+    align-items:center;
+    gap:12px;
+    background:#fff;
+    padding:6px 10px;
+    border-radius:6px;
+    box-shadow:0 1px 3px rgba(0,0,0,0.08);
+    height:60px;              /* 🔥 VERY SMALL HEIGHT */
 }
 
+/* TITLE */
+.item-box h3{
+    margin:0;
+    min-width:150px;
+    font-size:13px;
+    font-weight:600;
+    color:#111;
+}
+
+/* PLAY */
 .play-btn{
-    flex:1;
-    padding:9px;
-    background:#111;
-    color:white;
+    width:32px;
+    height:32px;
+    border-radius:50%;
     border:none;
-    border-radius:6px;
+    background:#111;
+    color:#fff;
     cursor:pointer;
+    font-size:12px;
 }
 .play-btn:hover{
     background:#1ee352;
     color:black;
 }
 
-.dl-btn{
+/* WAVE */
+.wave{
     flex:1;
-    padding:9px;
+    height:35px;              /* 🔥 slim waveform */
+}
+
+/* DOWNLOAD */
+.dl-btn{
+    width:32px;
+    height:32px;
+    border-radius:6px;
     background:#1ee352;
     color:black;
-    text-align:center;
-    border-radius:6px;
-    font-weight:700;
+    display:flex;
+    align-items:center;
+    justify-content:center;
     text-decoration:none;
+    font-size:13px;
+    font-weight:700;
 }
 .dl-btn:hover{
-    background:black;
+    background:#000;
     color:#1ee352;
 }
 </style>
@@ -136,13 +139,12 @@ function showTab(id){
     document.querySelectorAll("section").forEach(s=>s.style.display="none");
     document.getElementById(id).style.display="block";
 }
-
 function searchItems(){
     let q=document.getElementById("search").value.toLowerCase();
     document.querySelectorAll(".item-box").forEach(i=>{
-        let tags=i.getAttribute("data-tags").toLowerCase();
-        let title=i.innerText.toLowerCase();
-        i.style.display=(tags.includes(q)||title.includes(q))?"block":"none";
+        let t=i.getAttribute("data-tags").toLowerCase();
+        let n=i.innerText.toLowerCase();
+        i.style.display=(t.includes(q)||n.includes(q))?"flex":"none";
     });
 }
 </script>
@@ -153,9 +155,9 @@ function searchItems(){
 <header>EditHub 🔥</header>
 
 <div class="btn-box">
-    <button class="tab-btn" onclick="showTab('sfx')">🎧 SFX</button>
-    <button class="tab-btn" onclick="showTab('music')">🎵 Music</button>
-    <button class="tab-btn" onclick="showTab('memes')">😂 Memes</button>
+    <button class="tab-btn" onclick="showTab('sfx')">SFX</button>
+    <button class="tab-btn" onclick="showTab('music')">Music</button>
+    <button class="tab-btn" onclick="showTab('memes')">Memes</button>
 </div>
 
 <input id="search" placeholder="Search SFX / Music / Memes" onkeyup="searchItems()">
@@ -165,21 +167,17 @@ function searchItems(){
 <div class="grid">
 
 <div class="item-box" data-tags="shock electricity jump scare">
-<h3>Shocked SFX</h3>
+<button class="play-btn" onclick="w1.playPause()">▶</button>
+<h3>Shocked</h3>
 <div id="wave1" class="wave"></div>
-<div class="ctrl">
-<button class="play-btn" onclick="w1.playPause()">▶ Play</button>
-<a class="dl-btn" href="sfx/shocked.mp3" download>⬇ Download</a>
-</div>
+<a class="dl-btn" href="sfx/shocked.mp3" download>⬇</a>
 </div>
 
 <div class="item-box" data-tags="fart meme funny">
+<button class="play-btn" onclick="w2.playPause()">▶</button>
 <h3>Fart Meme</h3>
 <div id="wave2" class="wave"></div>
-<div class="ctrl">
-<button class="play-btn" onclick="w2.playPause()">▶ Play</button>
-<a class="dl-btn" href="sfx/fart-meme-sound.mp3" download>⬇ Download</a>
-</div>
+<a class="dl-btn" href="sfx/fart-meme-sound.mp3" download>⬇</a>
 </div>
 
 </div>
@@ -189,13 +187,11 @@ function searchItems(){
 <section id="music">
 <div class="grid">
 
-<div class="item-box" data-tags="music dramatic epic trailer">
+<div class="item-box" data-tags="music dramatic epic">
+<button class="play-btn" onclick="w3.playPause()">▶</button>
 <h3>Dramatic Theme</h3>
 <div id="wave3" class="wave"></div>
-<div class="ctrl">
-<button class="play-btn" onclick="w3.playPause()">▶ Play</button>
-<a class="dl-btn" href="music/dramatic.mp3" download>⬇ Download</a>
-</div>
+<a class="dl-btn" href="music/dramatic.mp3" download>⬇</a>
 </div>
 
 </div>
@@ -207,43 +203,41 @@ function searchItems(){
 
 <div class="item-box" data-tags="meme funny image">
 <h3>Meme 1</h3>
-<img src="memes/meme1.jpg" style="width:100%;border-radius:8px">
-<a class="dl-btn" href="memes/meme1.jpg" download style="margin-top:10px;">⬇ Download</a>
+<img src="memes/meme1.jpg" style="height:44px;border-radius:6px">
+<a class="dl-btn" href="memes/meme1.jpg" download>⬇</a>
 </div>
 
 </div>
 </section>
 
 <script>
-/* WAVES */
 var w1=WaveSurfer.create({
 container:'#wave1',
-waveColor:'#ccc',
+waveColor:'#dcdcdc',
 progressColor:'#1ee352',
 barWidth:2,
-height:85
+height:35
 });
 w1.load('sfx/shocked.mp3');
 
 var w2=WaveSurfer.create({
 container:'#wave2',
-waveColor:'#ccc',
+waveColor:'#dcdcdc',
 progressColor:'#1ee352',
 barWidth:2,
-height:85
+height:35
 });
 w2.load('sfx/fart-meme-sound.mp3');
 
 var w3=WaveSurfer.create({
 container:'#wave3',
-waveColor:'#ccc',
+waveColor:'#dcdcdc',
 progressColor:'#1ee352',
 barWidth:2,
-height:85
+height:35
 });
 w3.load('music/dramatic.mp3');
 
-/* DEFAULT */
 showTab('sfx');
 </script>
 
